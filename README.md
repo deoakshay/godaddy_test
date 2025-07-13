@@ -77,16 +77,6 @@ npm start
 - `GET /api/repositories` - Fetch all GoDaddy repositories
 - `GET /api/repositories/{id}` - Fetch specific repository by ID
 
-## Features Implemented
-
-✅ Display list of GoDaddy repositories  
-✅ Repository cards showing title, description, language, and stats  
-✅ Click to view repository details  
-✅ Repository detail page with all requested information  
-✅ Responsive design for mobile and desktop  
-✅ Error handling and loading states  
-✅ Modern, clean UI with hover effects  
-
 ## Development
 
 The application fetches data from the GitHub API to get GoDaddy's public repositories. The backend serves as a proxy to handle CORS and provide a clean API interface for the frontend.
