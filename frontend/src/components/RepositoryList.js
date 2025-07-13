@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { repositoryService } from '../services/repositoryService';
 
 const RepositoryList = () => {
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleRepoClick = (repoId) => {
+    navigate(`/repository/${repoId}`);
+  };
 
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
         setLoading(true);
-        const data = await repositoryService.getAllRepositories();
+        const data = await repositoryService.getRepositories();
         setRepositories(data);
       } catch (err) {
         setError('Failed to fetch repositories. Please try again later.');
@@ -43,15 +48,17 @@ const RepositoryList = () => {
   return (
     <div className="container">
       <h2 style={{ marginBottom: '20px', color: '#333' }}>
-        GoDaddy Open Source Repositories ({repositories.length})
+        GoDaddy Repositories
       </h2>
       
       <div className="repo-grid">
         {repositories.map((repo) => (
-          <Link 
+          <div 
             key={repo.id} 
-            to={`/repository/${repo.id}`} 
             className="repo-card"
+            data-testid="repo-card"
+            onClick={() => handleRepoClick(repo.id)}
+            style={{ cursor: 'pointer' }}
           >
             <div className="repo-title">{repo.name}</div>
             <div className="repo-description">
@@ -82,7 +89,7 @@ const RepositoryList = () => {
                 </div>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
